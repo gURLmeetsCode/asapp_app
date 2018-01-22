@@ -1,6 +1,9 @@
 # ASAPP Front End Challenge
 
-Your challenge is to build a split screen chat interface. In one browser tab, there should be two side-by-side chat windows. On the left is Laura's chat window and she's talking to Rob. On the right is Rob's chat window and he's talking to Laura.
+Your challenge is to build a split screen chat interface. In one browser tab, there should be two side-by-side chat windows. On the left is Laura's chat window and she's talking to Rob. On the right is Rob's chat window and he's talking to Laura. To view full instructions check out the Frontend Engineering ASAPP Challenge.txt
+
+
+### Instructions
 
 Follow these instructions to get a copy of the project up and running on your local machine.
 
@@ -14,51 +17,66 @@ Be sure to check if you have the latest version of node (Node V8) installed on y
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
+* Here are the instructions on how to get the project running on your local machine.
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
+Once you are in the project folder, from the terminal, run the following command:
 
 ```
-until finished
-```
+npm install
 
-End with an example of getting some data out of the system or using it for a little demo
+```
+From here you will have the project dependencies available on your local machine.
+
+To run the program, from the terminal, type the following command(s):
+
+
+Normal loading
+
+```
+npm run build
+
+npm start
+
+```
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Instructions on how to run the integration tests for this system
+
+To run the test, from the terminal, type the following command:
+
+```
+npm run test
+
+```
 
 ### Break down into end to end tests
 
-Explain what these tests test and why
+These tests check the specified endpoints and verifies the response.  
+
+An example test would be:
 
 ```
-Give an example
+describe('Addition', () => {
+  it('knows that 2 and 2 make 4', () => {
+    expect(2 + 2).toBe(4);
+  });
+});
+
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+* [Express](https://expressjs.com/) - Node.js web application framework
+* [Websockets](https://socket.io/) - Used to generate RSS Feeds
+* [Webpack](https://webpack.js.org/) - Static module bundler
+* [React-Bootstrap](https://react-bootstrap.github.io/) - Front end framework for React
+* [Mockingbird](https://gomockingbird.com/home) - Used to generate wireframes
+* [Jest](https://facebook.github.io/jest/) - Testing resource
+* [Enzyme](https://github.com/airbnb/enzyme) - Testing resource
+
 
 ## Author
 

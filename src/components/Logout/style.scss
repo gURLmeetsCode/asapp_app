@@ -1,0 +1,105 @@
+.title{
+  margin-left: 10px;
+  color: rgb(235, 235, 235);
+  font-family: sans-serif;
+}
+
+.circle{
+  display: table-cell;
+  height: 70px;
+  width: 70px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: #fff;
+  color:black;
+  font: 10px arial;
+  border:1px solid #ACD8F0;
+}
+
+.img-circle {
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+}
+
+.userlog{
+  margin:0 auto;
+  margin-bottom:25px;
+  padding:10px;
+  height:100px;
+  width:100%;
+  overflow:auto;
+}
+
+.chatlog{
+  text-align:left;
+  margin:0 auto;
+  margin-bottom:25px;
+  padding:10px;
+  background:#fff;
+  height:350px;
+  width:550px;
+  border:1px solid #ACD8F0;
+  overflow:auto;
+}
+
+.signed_on_banner{
+  font-size: 12px;
+  color: green;
+  font-style: italic;
+}
+
+.form_header{
+  font-weight: 200;
+  font-size: 30px;
+  font-family: sans-serif;
+}
+
+.form_subheader{
+  margin-top: 5px;
+  font-size: 15px;
+  line-height: 1.0;
+  font-weight: 300;
+}
+
+.form_container{
+  height:205px;
+  width:550px;
+  background:rgba(235, 235, 235, 1.2);
+}
+
+#close{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 2rem;
+  transform: scale(1.2);
+  transform-origin: 100% 0;
+  cursor: pointer;
+}
+
+
+.bubble{
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    box-shadow: 0 0 6px #B2B2B2;
+    display: list-item;
+    padding: 10px 18px;
+    position: relative;
+    vertical-align: top;
+    width:180px;
+}
+
+.bubble::before {
+    background-color: #F2F2F2;
+    display:list-item;
+    height: 16px;
+    position: absolute;
+    top: 11px;
+    width:180px;
+}
+
+.you{
+  background-color: #647588;
+}

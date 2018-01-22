@@ -45,11 +45,6 @@ module.exports = {
   resolve: {
    extensions: ['.js']
  },
-  devServer: {
-    contentBase: './dist',
-    hot: true,
-    historyApiFallback: true
-  },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
