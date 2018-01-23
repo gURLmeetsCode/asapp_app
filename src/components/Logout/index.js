@@ -9,6 +9,7 @@ require('./style.scss')
 export default class Logout extends React.Component{
   constructor(props){
     super(props);
+
     this.state = {
       firstUsername: '',
       message: '',
@@ -16,16 +17,20 @@ export default class Logout extends React.Component{
     }
 
   }
+
+  // method to capture and store user 1 name
   componentWillUpdate(nextProps, nextState){
     localStorage.setItem('firstUsername', JSON.stringify(nextState.firstUsername))
   }
 
-
+  // method for user 2 logoff
   handleClick = () => {
     alert("Are you sure you want to exit?")
+    socket.emit('user left', `${secondUsername}`)
     localStorage.removeItem('secondUsername')
   }
 
+  // method for user 1 login
   handleSignin = e => {
     const user = `${this.input.value}`
       if (user !== "Laura") {
@@ -34,22 +39,24 @@ export default class Logout extends React.Component{
       } else {
         e.preventDefault()
       }
+      socket.emit('user joined', `${this.state.firstUsername}`)
       this.props.history.push('/chat');
   }
 
   // Form Send
   handleSubmit = e => {
     e.preventDefault()
-    socket.emit('chat message', `${this.state.message}`)
-    this.getTimeNow()
     this.setState({message:''})
   }
 
   // user 2 messages queue
   addToMessages = () => {
+    socket.emit('chat message', `${this.state.message}`)
+    this.getTimeNow()
     this.setState({messages: this.state.messages.concat(this.state.message)})
   }
 
+  // method for gettting time of sent message
   getTimeNow = () => {
     let currentTime = new Date();
     let diem = "AM"

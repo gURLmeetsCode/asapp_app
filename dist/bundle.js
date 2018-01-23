@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bf893046e4aa8bd0d48c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "02527505eda6a68f65a7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -8854,6 +8854,7 @@ var Login = function (_Component) {
       } else {
         e.preventDefault();
       }
+      socket.emit('user joined', '' + _this.state.firstUsername);
       _this.props.history.push('/user1');
     };
 
@@ -47072,6 +47073,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 __webpack_require__(366);
 
+var firstUsername = localStorage.getItem('firstUsername');
+var secondUsername = localStorage.getItem('secondUsername');
+
 var Chat = function (_React$Component) {
   _inherits(Chat, _React$Component);
 
@@ -47082,22 +47086,24 @@ var Chat = function (_React$Component) {
 
     _this.user1handleClick = function () {
       alert("Are you sure you want to exit?");
+      socket.emit('user left', '' + firstUsername);
       localStorage.removeItem('firstUsername');
     };
 
     _this.user2handleClick = function () {
       alert("Are you sure you want to exit?");
+      socket.emit('user left', '' + secondUsername);
       localStorage.removeItem('secondUsername');
     };
 
     _this.handleSubmit = function (e) {
       e.preventDefault();
-      _this.getTimeNow();
       _this.setState({ usr1_message: '', usr2_message: '' });
     };
 
     _this.addUsr1Messages = function () {
       socket.emit('chat message', '' + _this.state.usr1_message);
+      _this.getTimeNow();
       _this.setState({ messages: _this.state.messages.concat(_this.state.usr1_message) });
     };
 
@@ -47110,6 +47116,7 @@ var Chat = function (_React$Component) {
     _this.addUsr2Messages = function () {
       _this.hideDisplay();
       socket.emit('chat message', '' + _this.state.usr2_message);
+      _this.getTimeNow();
       _this.setState({ messages: _this.state.messages.concat(_this.state.usr2_message) });
     };
 
@@ -47142,13 +47149,25 @@ var Chat = function (_React$Component) {
     return _this;
   }
 
+  // handler for user 1 logoff
+
+
+  // handler for user 2 logoff
+
+
   // Form Send
 
 
   // user 1 messages queue
 
 
+  // method for hiding signed on banner
+
+
   // user 2 messages queue
+
+
+  // method for getting time message was sent
 
 
   _createClass(Chat, [{
@@ -47161,11 +47180,6 @@ var Chat = function (_React$Component) {
           usr2_message = _state.usr2_message,
           messages = _state.messages;
 
-
-      var firstUsername = localStorage.getItem('firstUsername');
-      var secondUsername = localStorage.getItem('secondUsername');
-
-      console.log(this.state);
 
       return _react2.default.createElement(
         'div',
@@ -47370,6 +47384,7 @@ var Logout = function (_React$Component) {
 
     _this.handleClick = function () {
       alert("Are you sure you want to exit?");
+      socket.emit('user left', '' + secondUsername);
       localStorage.removeItem('secondUsername');
     };
 
@@ -47381,17 +47396,18 @@ var Logout = function (_React$Component) {
       } else {
         e.preventDefault();
       }
+      socket.emit('user joined', '' + _this.state.firstUsername);
       _this.props.history.push('/chat');
     };
 
     _this.handleSubmit = function (e) {
       e.preventDefault();
-      socket.emit('chat message', '' + _this.state.message);
-      _this.getTimeNow();
       _this.setState({ message: '' });
     };
 
     _this.addToMessages = function () {
+      socket.emit('chat message', '' + _this.state.message);
+      _this.getTimeNow();
       _this.setState({ messages: _this.state.messages.concat(_this.state.message) });
     };
 
@@ -47424,16 +47440,28 @@ var Logout = function (_React$Component) {
     return _this;
   }
 
+  // method to capture and store user 1 name
+
+
   _createClass(Logout, [{
     key: 'componentWillUpdate',
     value: function componentWillUpdate(nextProps, nextState) {
       localStorage.setItem('firstUsername', JSON.stringify(nextState.firstUsername));
     }
 
+    // method for user 2 logoff
+
+
+    // method for user 1 login
+
+
     // Form Send
 
 
     // user 2 messages queue
+
+
+    // method for gettting time of sent message
 
   }, {
     key: 'render',
@@ -50771,6 +50799,7 @@ var User1 = function (_React$Component) {
 
     _this.handleClick = function () {
       alert("Are you sure you want to exit?");
+      socket.emit('user left', '' + firstUsername);
       localStorage.removeItem('firstUsername');
     };
 
@@ -50782,13 +50811,12 @@ var User1 = function (_React$Component) {
       } else {
         e.preventDefault();
       }
+      socket.emit('user joined', '' + _this.state.secondUsername);
       _this.props.history.push('/chat');
     };
 
     _this.handleSubmit = function (e) {
       e.preventDefault();
-      socket.emit('chat message', '' + _this.state.message);
-      _this.getTimeNow();
       _this.setState({ message: '' });
     };
 
@@ -50800,6 +50828,8 @@ var User1 = function (_React$Component) {
 
     _this.addToMessages = function () {
       _this.hideDisplay();
+      socket.emit('chat message', '' + _this.state.message);
+      _this.getTimeNow();
       _this.setState({ messages: _this.state.messages.concat(_this.state.message) });
     };
 
@@ -50832,16 +50862,31 @@ var User1 = function (_React$Component) {
     return _this;
   }
 
+  // method to capture and store user 2 name
+
+
   _createClass(User1, [{
     key: 'componentWillUpdate',
     value: function componentWillUpdate(nextProps, nextState) {
       localStorage.setItem('secondUsername', JSON.stringify(nextState.secondUsername));
     }
 
+    // method to handle user 1 logoff
+
+
+    // method to handle user 2 login
+
+
     // Form Send
 
 
+    // method to handle signed on banner
+
+
     // user 1 messages queue
+
+
+    // handle to get time now
 
   }, {
     key: 'render',

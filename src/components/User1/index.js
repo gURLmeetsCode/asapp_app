@@ -16,16 +16,19 @@ export default class User1 extends React.Component{
 
   }
 
+  // method to capture and store user 2 name
   componentWillUpdate(nextProps, nextState){
     localStorage.setItem('secondUsername', JSON.stringify(nextState.secondUsername))
   }
 
-
+  // method to handle user 1 logoff
   handleClick = () => {
     alert("Are you sure you want to exit?")
+    socket.emit('user left', `${firstUsername}`)
     localStorage.removeItem('firstUsername')
   }
 
+  // method to handle user 2 login
   handleSignin = e => {
     const user = `${this.input.value}`
       if (user !== "Rob") {
@@ -34,17 +37,17 @@ export default class User1 extends React.Component{
       } else {
         e.preventDefault()
       }
+      socket.emit('user joined', `${this.state.secondUsername}`)
       this.props.history.push('/chat');
   }
 
   // Form Send
   handleSubmit = e => {
     e.preventDefault()
-    socket.emit('chat message', `${this.state.message}`)
-    this.getTimeNow()
     this.setState({message:''})
   }
 
+  // method to handle signed on banner
   hideDisplay = () =>{
     setTimeout(function () {document.getElementById('signed_on_banner').style.display='none'}, 1000)
   }
@@ -52,9 +55,12 @@ export default class User1 extends React.Component{
   // user 1 messages queue
   addToMessages = () => {
     this.hideDisplay()
+    socket.emit('chat message', `${this.state.message}`)
+    this.getTimeNow()
     this.setState({messages: this.state.messages.concat(this.state.message)})
   }
 
+  // handle to get time now
   getTimeNow = () => {
     let currentTime = new Date();
     let diem = "AM"

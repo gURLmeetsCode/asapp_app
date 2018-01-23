@@ -9,6 +9,7 @@ require('./style.scss')
 export default class Login extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       firstUsername: ''
     }
@@ -30,6 +31,7 @@ export default class Login extends Component {
       } else {
         e.preventDefault()
       }
+    socket.emit('user joined', `${this.state.firstUsername}`)
     this.props.history.push('/user1');
   }
 

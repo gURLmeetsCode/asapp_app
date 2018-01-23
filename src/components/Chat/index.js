@@ -3,11 +3,14 @@ import { Button, Grid, Row, Col, FormGroup, FormControl } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 require('./style.scss')
 
+const firstUsername = localStorage.getItem('firstUsername')
+const secondUsername = localStorage.getItem('secondUsername')
 
 
 export default class Chat extends React.Component{
   constructor(props){
     super(props);
+
     this.state = {
       usr1_message: '',
       usr2_message: '',
@@ -17,30 +20,34 @@ export default class Chat extends React.Component{
   }
 
 
-
+  // handler for user 1 logoff
   user1handleClick = () => {
     alert("Are you sure you want to exit?")
+    socket.emit('user left', `${firstUsername}`)
     localStorage.removeItem('firstUsername')
   }
 
+  // handler for user 2 logoff
   user2handleClick = () => {
     alert("Are you sure you want to exit?")
+    socket.emit('user left', `${secondUsername}`)
     localStorage.removeItem('secondUsername')
   }
 
   // Form Send
   handleSubmit = e => {
     e.preventDefault()
-    this.getTimeNow()
     this.setState({usr1_message:'', usr2_message:''})
   }
 
   // user 1 messages queue
   addUsr1Messages = () => {
     socket.emit('chat message', `${this.state.usr1_message}`)
+    this.getTimeNow()
     this.setState({messages: this.state.messages.concat(this.state.usr1_message)})
   }
 
+  // method for hiding signed on banner
   hideDisplay = () =>{
     setTimeout(function () {document.getElementById('signed_on_banner').style.display='none'}, 1000)
   }
@@ -49,9 +56,11 @@ export default class Chat extends React.Component{
   addUsr2Messages = () => {
     this.hideDisplay()
     socket.emit('chat message', `${this.state.usr2_message}`)
+    this.getTimeNow()
     this.setState({messages: this.state.messages.concat(this.state.usr2_message)})
   }
 
+  // method for getting time message was sent
   getTimeNow = () => {
     let currentTime = new Date();
     let diem = "AM"
@@ -80,10 +89,6 @@ export default class Chat extends React.Component{
       messages
     } = this.state
 
-    const firstUsername = localStorage.getItem('firstUsername')
-    const secondUsername = localStorage.getItem('secondUsername')
-
-    console.log(this.state)
 
     return(
       <div className="container">
